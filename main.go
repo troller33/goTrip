@@ -10,7 +10,6 @@ import (
 	"github.com/bytedance/sonic"
 	"github.com/gofiber/contrib/swagger"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cache"
 	"github.com/gofiber/fiber/v2/middleware/csrf"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -102,13 +101,13 @@ func main() {
 	}
 
 	// cache config
-	cacheConf := cache.Config{
-		Expiration: 11 * time.Minute,
-	}
+	// cacheConf := cache.Config{
+	// 	Expiration: 11 * time.Minute,
+	// }
+	// app.Use(cache.New(cacheConf))
 
 	// Middlewares: logger, swagger, recover, cache, rate limiter & CSRF protection
-	app.Use(logger.New(), swagger.New(swaggerConf),
-		recover.New(), cache.New(cacheConf),
+	app.Use(logger.New(), swagger.New(swaggerConf), recover.New(),
 		limiter.New(limiterConf), csrf.New(csrfConf))
 
 	// Set up routes
