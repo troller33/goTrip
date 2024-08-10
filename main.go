@@ -38,16 +38,20 @@ func main() {
 		sslmode = "disable"
 	}
 
-	// Construct database connection string
-	dsn := fmt.Sprintf(
-		"host=%s user=%s password=%s dbname=%s sslmode=%s",
-		os.Getenv("HOST"), os.Getenv("USER"),
-		os.Getenv("PASS"), os.Getenv("NAME"), sslmode)
+	dsn := os.Getenv("DB_URL")
 
-	// Add port to connection string if specified
-	port := os.Getenv("PORT")
-	if port != "" {
-		dsn += " port=" + port
+	if dsn == "" {
+		// Construct database connection string
+		dsn = fmt.Sprintf(
+			"host=%s user=%s password=%s dbname=%s sslmode=%s",
+			os.Getenv("HOST"), os.Getenv("USER"),
+			os.Getenv("PASS"), os.Getenv("NAME"), sslmode)
+
+		// Add port to connection string if specified
+		port := os.Getenv("PORT")
+		if port != "" {
+			dsn += " port=" + port
+		}
 	}
 
 	// Create database connection
@@ -111,6 +115,6 @@ func main() {
 	repo.SetupRoutes(app)
 
 	// Start the server
-	port = ":" + os.Getenv("API_PORT")
+	port := ":" + os.Getenv("API_PORT")
 	log.Fatal(app.Listen(port))
 }
