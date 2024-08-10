@@ -96,7 +96,7 @@ func main() {
 
 	// Rate Limiter Config
 	limiterConf := limiter.Config{
-		Max:        3,
+		Max:        1,
 		Expiration: time.Second,
 	}
 
