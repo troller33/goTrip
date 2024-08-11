@@ -1,11 +1,8 @@
 openapi: 3.1.0
 info:
-  title: Travel API
+  title: Trip API
   description: API for managing travel destinations and trips
   version: 1.0.0
-servers:
-  - url: https://gotrip-yqzs.onrender.com/
-    description: Server
 paths:
   /login:
     get:
@@ -20,7 +17,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  csrfToken:
+                  csrf:
                     type: string
     post:
       summary: Login user
@@ -81,13 +78,6 @@ paths:
       responses:
         '201':
           description: User registered successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
   /destination:
     get:
       summary: Get all destinations
@@ -129,13 +119,6 @@ paths:
       responses:
         '201':
           description: Destination created successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
       security:
         - jwt: []
     put:
@@ -168,13 +151,6 @@ paths:
       responses:
         '200':
           description: Destination updated successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
       security:
         - jwt: []
   /destination/{id}:
@@ -217,7 +193,7 @@ paths:
           schema:
             type: string
       responses:
-        '204':
+        '200':
           description: Destination deleted successfully
       security:
         - jwt: []
@@ -267,13 +243,6 @@ paths:
       responses:
         '201':
           description: Trip created successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
       security:
         - jwt: []
     put:
@@ -311,13 +280,6 @@ paths:
       responses:
         '200':
           description: Trip updated successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
       security:
         - jwt: []
   /trip/{id}:
@@ -417,10 +379,6 @@ paths:
       responses:
         '200':
           description: User information updated successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
       security:
         - jwt: []
   /admin:

@@ -4,13 +4,14 @@ import (
 	"fmt"
 	"log"
 	"time"
-	"trip/db"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
 	"golang.org/x/crypto/bcrypt"
+
+	"github.com/Trisamudrisvara/goTrip/db"
 )
 
 // getCsrf retrieves the CSRF token from the context and returns it

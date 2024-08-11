@@ -2,10 +2,11 @@ package routes
 
 import (
 	"log"
-	"trip/db"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
+
+	"github.com/Trisamudrisvara/goTrip/db"
 )
 
 // aboutUser retrieves and returns user information from the JWT token

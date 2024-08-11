@@ -1,4 +1,4 @@
-module trip
+module github.com/Trisamudrisvara/goTrip
 
 go 1.22.5
 

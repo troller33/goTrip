@@ -3,11 +3,12 @@ package routes
 import (
 	"log"
 	"strings"
-	"trip/db"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
+
+	"github.com/Trisamudrisvara/goTrip/db"
 )
 
 // getDestinations retrieves all destinations from the database

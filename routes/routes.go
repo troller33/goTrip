@@ -3,10 +3,11 @@ package routes
 import (
 	"context"
 	"os"
-	"trip/db"
 
 	"github.com/gofiber/contrib/jwt"
 	"github.com/gofiber/fiber/v2"
+
+	"github.com/Trisamudrisvara/goTrip/db"
 )
 
 type CheckIfOwner struct {

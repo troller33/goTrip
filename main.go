@@ -18,8 +18,8 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/joho/godotenv"
 
-	"trip/db"
-	"trip/routes"
+	"github.com/Trisamudrisvara/goTrip/db"
+	"github.com/Trisamudrisvara/goTrip/routes"
 )
 
 func init() {
@@ -91,6 +91,7 @@ func main() {
 
 	// Configure Swagger
 	swaggerConf := swagger.Config{
+		Title:    "Trip API",
 		FilePath: "swagger.yaml",
 	}
 
