@@ -35,9 +35,9 @@ func (r *Repo) SetupRoutes(app *fiber.App) {
 	loadEnvVars()
 
 	// Prometheus
-	// app.Get("/ping", func(c *fiber.Ctx) error {
-	// 	return c.SendString("pong")
-	// })
+	app.Get("/ping", func(c *fiber.Ctx) error {
+		return c.SendString("pong")
+	})
 
 	// Auth
 	login := app.Group("/login")
