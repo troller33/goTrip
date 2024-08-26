@@ -10,9 +10,7 @@ import (
 	"github.com/Trisamudrisvara/goTrip/db"
 )
 
-type CheckIfOwner struct {
-	owner bool
-}
+type CheckIfOwner bool
 
 type Repo struct {
 	Ctx     context.Context
@@ -35,6 +33,11 @@ var (
 func (r *Repo) SetupRoutes(app *fiber.App) {
 	// loads neccessary environment variables
 	loadEnvVars()
+
+	// Prometheus
+	// app.Get("/ping", func(c *fiber.Ctx) error {
+	// 	return c.SendString("pong")
+	// })
 
 	// Auth
 	login := app.Group("/login")
@@ -71,11 +74,11 @@ func (r *Repo) SetupRoutes(app *fiber.App) {
 	// only owner can promote user to admin
 	// or demote admin to user with additional admin=demote in form
 	// app.Get("admin/:email", r.promoteAdmin) // GET isn't protected by CSRF
-	checkOwner := CheckIfOwner{owner: true}
+	checkOwner := CheckIfOwner(true)
 	app.Post("/admin", checkOwner.checkIfAdmin, r.promoteAdmin)
 
 	// checks for admin instead of owner
-	checkOwner.owner = false
+	checkOwner = false
 	// Middleware to check if user is admin
 	app.Use(checkOwner.checkIfAdmin)
 	// test if middleware is working properly

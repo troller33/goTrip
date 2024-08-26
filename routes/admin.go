@@ -16,7 +16,7 @@ func (checkOwner CheckIfOwner) checkIfAdmin(c *fiber.Ctx) error {
 	claims := user.Claims.(jwt.MapClaims)
 
 	check := "admin"
-	if checkOwner.owner {
+	if checkOwner {
 		check = "owner"
 	}
 

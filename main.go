@@ -7,7 +7,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/bytedance/sonic"
+	// "github.com/ansrivas/fiberprometheus/v2"
+	"github.com/goccy/go-json"
 	"github.com/gofiber/contrib/swagger"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/csrf"
@@ -63,7 +64,7 @@ func main() {
 
 	// Initialize database queries and repository
 	queries := db.New(conn)
-	repo := routes.Repo{
+	repo := &routes.Repo{
 		Ctx:     ctx,
 		Queries: queries,
 	}
@@ -71,8 +72,8 @@ func main() {
 	// Create Fiber app with custom JSON encoder/decoder for performance
 	app := fiber.New(fiber.Config{
 		// Prefork:     true,
-		JSONEncoder: sonic.Marshal,
-		JSONDecoder: sonic.Unmarshal,
+		JSONEncoder: json.Marshal,
+		JSONDecoder: json.Unmarshal,
 	})
 
 	// Configure CSRF middleware
@@ -106,6 +107,10 @@ func main() {
 	// 	Expiration: 11 * time.Minute,
 	// }
 	// app.Use(cache.New(cacheConf))
+
+	// prometheus := fiberprometheus.New("trip")
+	// prometheus.RegisterAt(app, "/metrics")
+	// prometheus.SetSkipPaths([]string{"/ping", "/favicon.ico"})
 
 	// Middlewares: logger, swagger, recover, cache, rate limiter & CSRF protection
 	app.Use(logger.New(), swagger.New(swaggerConf), recover.New(),
