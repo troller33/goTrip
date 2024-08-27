@@ -8,7 +8,7 @@ import (
 	"time"
 
 	// "github.com/ansrivas/fiberprometheus/v2"
-	"github.com/goccy/go-json"
+	"github.com/bytedance/sonic"
 	"github.com/gofiber/contrib/swagger"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/csrf"
@@ -69,12 +69,15 @@ func main() {
 		Queries: queries,
 	}
 
-	// Create Fiber app with custom JSON encoder/decoder for performance
-	app := fiber.New(fiber.Config{
+	// custom JSON encoder/decoder for performance
+	fiberConfig := fiber.Config{
 		// Prefork:     true,
-		JSONEncoder: json.Marshal,
-		JSONDecoder: json.Unmarshal,
-	})
+		JSONEncoder: sonic.Marshal,
+		JSONDecoder: sonic.Unmarshal,
+	}
+
+	// Initializing fiber app
+	app := fiber.New(fiberConfig)
 
 	// Configure CSRF middleware
 	csrfConf := csrf.Config{
@@ -108,6 +111,7 @@ func main() {
 	// }
 	// app.Use(cache.New(cacheConf))
 
+	// prometheus config
 	// prometheus := fiberprometheus.New("trip")
 	// prometheus.RegisterAt(app, "/metrics")
 	// prometheus.SetSkipPaths([]string{"/ping", "/favicon.ico"})
